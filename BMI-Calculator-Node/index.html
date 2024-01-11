@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computing BMI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fcf9f9;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            background-color: #61615f;
+            padding: 2px;
+            border-radius: 2px;
+            color: white;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #cf7d7d;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #eff7ef;
+            color: rgb(124, 183, 218);
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #e2e18e;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #837d7d;
+        }
+
+        #error {
+            color: rgb(112, 235, 184);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Computing BMI</h1>
+
+    <form id="bmiForm">
+        <label for="firstName">name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="lastName">famili :</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <label for="age">age:</label>
+        <input type="number" id="age" name="age" min="1" required>
+
+        <label for="gender">gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">mr</option>
+            <option value="female">miss</option>
+        </select>
+
+        <label for="weight">weight (kg):</label>
+        <input type="number" id="weight" name="weight" min="1" required>
+
+        <label for="height">height (centimeter):</label>
+        <input type="number" id="height" name="height" min="1" required>
+
+        <button type="button" onclick="calculateBMI()">computing BMI</button>
+    </form>
+
+    <div id="result"></div>
+    <div id="error"></div>
+
+    <script>
+        function calculateBMI() {
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            var age = document.getElementById("age").value;
+            var gender = document.getElementById("gender").value;
+            var weight = document.getElementById("weight").value;
+            var height = document.getElementById("height").value;
+
+            // checking negative and zero values
+            if (age <= 0 || weight <= 0 || height <= 0) {
+                document.getElementById("result").innerHTML = "";
+                document.getElementById("error").innerHTML = " it cannot be negative or zero.";
+                return;
+            }
+
+            //Convert height to meters
+            var heightInMeter = height / 100;
+
+            // محاسبه BMI با فرمول وزن تقسیم بر مربع قد
+            var bmi = weight / (heightInMeter * heightInMeter);
+
+            // زمان ثبت اطلاعات
+            var currentTime = new Date();
+            var timestamp = currentTime.toLocaleString();
+
+            // نمایش نتیجه
+            var result = "name: " + firstName + " " + lastName + "<br>age: " + age + " year gender: " + gender + "، weight: " + weight + " kg height: " + height + " centimeter <br>BMI: " + bmi.toFixed(2) + "<br>زمان ثبت: " + timestamp;
+
+            document.getElementById("result").innerHTML = result;
+            document.getElementById("error").innerHTML = "";
+        }
+    </script>
+
+</body>
+</html>
